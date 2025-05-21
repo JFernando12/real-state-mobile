@@ -1,16 +1,18 @@
 import { settings } from "@/constants/data";
 import icons from "@/constants/icons";
-import images from "@/constants/images";
-import React from "react";
+import { logout } from '@/lib/appwrite';
+import { useGlobalContext } from '@/lib/global-provider';
+import React from 'react';
 import {
+  Alert,
   Image,
   ImageSourcePropType,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SettingItemProps {
   icon: ImageSourcePropType;
@@ -42,7 +44,16 @@ const SettingsItem = ({
 );
 
 const Profile = () => {
-  const handleLogout = async () => {};
+  const { user, refetch } = useGlobalContext();
+  const handleLogout = async () => {
+    const result = await logout();
+    if (!result) {
+      Alert.alert('Failed', 'Logout failed');
+      return;
+    }
+    Alert.alert('Success', 'Logout successful');
+    refetch();
+  };
   return (
     <SafeAreaView className="h-full bg-white">
       <ScrollView
@@ -56,13 +67,16 @@ const Profile = () => {
         <View className="flex-row justify-center">
           <View className="flex-col items-center">
             <View className="relative">
-              <Image source={images.avatar} className="size-44 rounded-full" />
+              <Image
+                source={{ uri: user?.avatar }}
+                className="size-44 rounded-full"
+              />
               <TouchableOpacity className="absolute bottom-2 right-2">
                 <Image source={icons.edit} className="size-9" />
               </TouchableOpacity>
             </View>
-            <Text className="text-2xl font-rubik-bold mt-2">
-              Jose Fernando | Backend
+            <Text className="text-xl text-center font-rubik-bold mt-2">
+              {user?.name}
             </Text>
           </View>
         </View>
@@ -70,10 +84,19 @@ const Profile = () => {
           <SettingsItem icon={icons.calendar} title="My Bookings" />
           <SettingsItem icon={icons.wallet} title="Payments" />
         </View>
-        <View>
+        <View className="flex-col mt-5 border-t border-primary-200">
           {settings.map((item, index) => (
             <SettingsItem key={index} {...item} />
           ))}
+        </View>
+        <View className="flex-col mt-5 border-t border-primary-200">
+          <SettingsItem
+            icon={icons.logout}
+            title="Logout"
+            onPress={handleLogout}
+            showArrow={false}
+            textStyle="text-danger"
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
