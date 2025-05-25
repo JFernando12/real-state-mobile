@@ -6,7 +6,7 @@ import React from 'react';
 import {
   Alert,
   Image,
-  ImageSourcePropType,
+  ImagePropsBase,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -15,7 +15,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SettingItemProps {
-  icon: ImageSourcePropType;
+  icon: ImagePropsBase;
   title: string;
   onPress?: () => void;
   textStyle?: string;
@@ -39,7 +39,9 @@ const SettingsItem = ({
         {title}
       </Text>
     </View>
-    {showArrow && <Image source={icons.rightArrow} className="size-5" />}
+    {showArrow && (
+      <Image source={icons.rightArrow as ImagePropsBase} className="size-5" />
+    )}
   </TouchableOpacity>
 );
 
@@ -59,10 +61,11 @@ const Profile = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-32 px-7"
+        contentContainerStyle={{}}
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <Text className="text-xl font-rubik-bold">Profile</Text>
-          <Image source={icons.bell} className="size-5" />
+          <Image source={icons.bell as ImagePropsBase} className="size-5" />
         </View>
         <View className="flex-row justify-center">
           <View className="flex-col items-center">
@@ -72,7 +75,10 @@ const Profile = () => {
                 className="size-44 rounded-full"
               />
               <TouchableOpacity className="absolute bottom-2 right-2">
-                <Image source={icons.edit} className="size-9" />
+                <Image
+                  source={icons.edit as ImagePropsBase}
+                  className="size-9"
+                />
               </TouchableOpacity>
             </View>
             <Text className="text-xl text-center font-rubik-bold mt-2">
@@ -81,17 +87,27 @@ const Profile = () => {
           </View>
         </View>
         <View className="flex-col mt-10">
-          <SettingsItem icon={icons.calendar} title="My Bookings" />
-          <SettingsItem icon={icons.wallet} title="Payments" />
+          <SettingsItem
+            icon={icons.calendar as ImagePropsBase}
+            title="My Bookings"
+          />
+          <SettingsItem
+            icon={icons.wallet as ImagePropsBase}
+            title="Payments"
+          />
         </View>
         <View className="flex-col mt-5 border-t border-primary-200">
           {settings.map((item, index) => (
-            <SettingsItem key={index} {...item} />
+            <SettingsItem
+              key={index}
+              title={typeof item.title === 'string' ? item.title : ''}
+              icon={item.icon}
+            />
           ))}
         </View>
         <View className="flex-col mt-5 border-t border-primary-200">
           <SettingsItem
-            icon={icons.logout}
+            icon={icons.logout as ImagePropsBase}
             title="Logout"
             onPress={handleLogout}
             showArrow={false}

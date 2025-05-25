@@ -118,20 +118,28 @@ export async function getLatestProperties() {
   }
 }
 
-export async function getProperties({ filter, query, limit }) {
+export async function getProperties({
+  filter,
+  query,
+  limit,
+}: {
+  filter?: string;
+  query?: string;
+  limit?: number;
+}) {
   try {
-    const buildQuery = [Query.orderDesc("$createdAt")];
+    const buildQuery = [Query.orderDesc('$createdAt')];
 
-    if (filter && filter !== "All") {
-      buildQuery.push(Query.equal("type", filter));
+    if (filter && filter !== 'All') {
+      buildQuery.push(Query.equal('type', filter));
     }
 
     if (query) {
       buildQuery.push(
         Query.or([
-          Query.search("name", query),
-          Query.search("address", query),
-          Query.search("type", query),
+          Query.search('name', query),
+          Query.search('address', query),
+          Query.search('type', query),
         ])
       );
     }
@@ -155,7 +163,7 @@ export async function getProperties({ filter, query, limit }) {
       rating: property.rating,
     }));
   } catch (error) {
-    console.error("Get properties error:", error);
+    console.error('Get properties error:', error);
     return [];
   }
 }

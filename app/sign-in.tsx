@@ -4,8 +4,15 @@ import { login } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
 import { Redirect } from "expo-router";
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Image,
+  ImagePropsBase,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignIn = () => {
   const { refetch, loading, isLoggedIn } = useGlobalContext();
@@ -17,7 +24,7 @@ const SignIn = () => {
     if (result) {
       refetch();
     } else {
-      console.log("Login failed");
+      console.log('Login failed');
     }
   };
 
@@ -25,7 +32,7 @@ const SignIn = () => {
     <SafeAreaView className="bg-white h-full">
       <ScrollView contentContainerClassName="h-full">
         <Image
-          source={images.onboarding}
+          source={images.onboarding as ImagePropsBase}
           className="w-full h-4/6"
           resizeMode="contain"
         />
@@ -34,7 +41,7 @@ const SignIn = () => {
             Welcome to Real State
           </Text>
           <Text className="text-3xl font-rubik-bold text-black-300 text-center mt-2">
-            Let's Get You Closer to {"\n"}
+            Let's Get You Closer to {'\n'}
             <Text className="text-primary-300">Your Ideal Home</Text>
           </Text>
           <Text className="text-lg font-rubik text-black-200 text-center mt-12">
@@ -46,7 +53,7 @@ const SignIn = () => {
           >
             <View className="flex flex-row items-center justify-center">
               <Image
-                source={icons.google}
+                source={icons.google as ImagePropsBase}
                 className="w-5 h-5"
                 resizeMode="contain"
               />
