@@ -57,11 +57,10 @@ const Profile = () => {
     refetch();
   };
   return (
-    <SafeAreaView className="h-full bg-white">
+    <SafeAreaView className="h-full bg-white -pb-safe-offset-20">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-32 px-7"
-        contentContainerStyle={{}}
       >
         <View className="flex flex-row items-center justify-between mt-5">
           <Text className="text-xl font-rubik-bold">Profile</Text>

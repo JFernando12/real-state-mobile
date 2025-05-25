@@ -54,14 +54,14 @@ export default function Index() {
   }, [params.filter, params.query]);
 
   return (
-    <SafeAreaView className="bg-white h-full">
+    <SafeAreaView className="bg-white h-full -pb-safe-offset-20">
       <FlatList
         data={properties}
         renderItem={({ item }) => <Card item={item} />}
         keyExtractor={(item) => item.$id}
         numColumns={2}
         columnWrapperClassName="flex gap-5 px-5"
-        contentContainerClassName="pb-32"
+        contentContainerClassName="pb-4"
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           propertiesLoading ? (
@@ -83,7 +83,7 @@ export default function Index() {
                     Good Morning
                   </Text>
                   <Text className="text-base font-rubik-medium text-black-300">
-                    {user?.name || "User"}
+                    {user?.name || 'User'}
                   </Text>
                 </View>
               </View>

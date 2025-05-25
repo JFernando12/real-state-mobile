@@ -44,7 +44,7 @@ export default function Explore() {
   }, [params.filter, params.query]);
 
   return (
-    <SafeAreaView className="bg-white h-full">
+    <SafeAreaView className="bg-white h-full -pb-safe-offset-20">
       <FlatList
         data={properties}
         renderItem={({ item }) => <Card item={item} />}
