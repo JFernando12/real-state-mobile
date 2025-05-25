@@ -37,7 +37,7 @@ export const FeaturedCard = () => {
 
 export const Card = () => {
   return (
-    <TouchableOpacity className="relative w-52 h-72 p-4 bg-white rounded-lg shadow-lg shadow-black-100/70">
+    <TouchableOpacity className="flex-1 w-full relative mt-4 px-3 py-4 bg-white rounded-lg shadow-lg shadow-black-100/70">
       <Image source={images.newYork} className="w-full h-40 rounded-xl" />
       <View className="mt-3 w-full">
         <Text className="text-lg font-rubik-bold">Cozy Studio</Text>
